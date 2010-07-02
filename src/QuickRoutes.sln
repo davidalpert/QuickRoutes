@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickRoutes", "QuickRoutes\QuickRoutes.csproj", "{6A29DD62-4D63-42F5-AD11-573EDABE7F15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickRoutes.Sample", "QuickRoutes.Sample\QuickRoutes.Sample.csproj", "{815C2DA9-DB96-4679-809F-68864BA68833}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A29DD62-4D63-42F5-AD11-573EDABE7F15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A29DD62-4D63-42F5-AD11-573EDABE7F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A29DD62-4D63-42F5-AD11-573EDABE7F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A29DD62-4D63-42F5-AD11-573EDABE7F15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{815C2DA9-DB96-4679-809F-68864BA68833}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{815C2DA9-DB96-4679-809F-68864BA68833}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{815C2DA9-DB96-4679-809F-68864BA68833}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{815C2DA9-DB96-4679-809F-68864BA68833}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
