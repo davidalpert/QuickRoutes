@@ -7,6 +7,7 @@ namespace QuickRoutes
 {
     public interface IHandler
     {
-
+        string Route { get; set; }
+        Action<Context> Handler { get; set; }
     }
 }
