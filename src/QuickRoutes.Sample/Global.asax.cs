@@ -9,8 +9,7 @@ namespace QuickRoutes.Sample
 {
     public class Minnow : App
     {
-        public Minnow(Context context)
-            : base(context)
+        public Minnow()
         {
             get("/", index);
         }
