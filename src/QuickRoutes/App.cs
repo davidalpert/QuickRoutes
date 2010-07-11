@@ -23,6 +23,7 @@ namespace QuickRoutes
         public void get(string route, Action<Context> handler)
         {
             _handlers["GET"].Add(new GetHandler { Route = route, Handler = handler });
+            RouteTable.Routes.Add(new Route(route.TrimStart('~', '/'), new QuickRoutesRouteHandler()));
         }
 
         public void get(Func<string> route, Action<Context> handler)
@@ -30,18 +31,17 @@ namespace QuickRoutes
             get(route(), handler);
         }
 
-        public void InvokeHandlerFor(string method, string rawUrl, RequestContext requestContext)
+        public void InvokeHandlerFor(string method, string rawUrl, Context context)
         {
             IHandler match = _handlers[method].Where(h => h.Route.Equals(rawUrl)).FirstOrDefault();
             if (match != null)
             {
-                match.Handler(new Context());
+                match.Handler(context);
             }
-        }
-
-        protected void Write(string param1)
-        {
-            throw new NotImplementedException();
+            else
+            {
+                throw new InvalidOperationException(String.Format("{0} {1} has no registered handler!", method, rawUrl));
+            }
         }
     }
 }

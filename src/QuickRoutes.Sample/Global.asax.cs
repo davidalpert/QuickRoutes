@@ -16,7 +16,7 @@ namespace QuickRoutes.Sample
 
         private void index(Context context)
         {
-            this.Write("Hey Skipper");
+            context.Write("Hey Skipper");
         }
     }
 }
