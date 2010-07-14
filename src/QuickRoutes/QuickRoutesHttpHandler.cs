@@ -9,15 +9,15 @@ namespace QuickRoutes
 {
     public class QuickRoutesHttpHandler : IHttpHandler
     {
-        RequestContext requestContext;
+        Context context;
 
         /// <summary>
         /// Initializes a new instance of the QuickRoutesHttpHandler class.
         /// </summary>
-        /// <param name="requestContext"></param>
-        public QuickRoutesHttpHandler(RequestContext requestContext)
+        /// <param name="contextWrapper"></param>
+        public QuickRoutesHttpHandler(Context context)
         {
-            this.requestContext = requestContext;
+            this.context = context;
         }
 
         public bool IsReusable
@@ -33,11 +33,12 @@ namespace QuickRoutes
                 throw new InvalidOperationException("Current HttpApplication is not a QuickRoutes App!");
             }
 
-            string method = requestContext.HttpContext.Request.HttpMethod;
-            string route = requestContext.HttpContext.Request.RawUrl;
-            Context quickRoutesContext = new Context(requestContext);
+            string method = context.Request.HttpMethod;
+            string route = context.Request.RawUrl;
+            var contextWrapper = new HttpContextWrapper(context);
+            var quickContext = new Context(contextWrapper);
 
-            app.InvokeHandlerFor(method, route, quickRoutesContext);
+            app.InvokeHandlerFor(method, route, quickContext);
         }
     }
 }

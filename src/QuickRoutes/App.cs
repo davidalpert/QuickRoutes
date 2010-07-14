@@ -18,12 +18,14 @@ namespace QuickRoutes
             _handlers["POST"] = new List<IHandler>();
             _handlers["PUT"] = new List<IHandler>();
             _handlers["DELETE"] = new List<IHandler>();
+
+            // ensure that the favicon has a default action.
+            get("/favicon.ico", c => { });
         }
 
         public void get(string route, Action<Context> handler)
         {
             _handlers["GET"].Add(new GetHandler { Route = route, Handler = handler });
-            RouteTable.Routes.Add(new Route(route.TrimStart('~', '/'), new QuickRoutesRouteHandler()));
         }
 
         public void get(Func<string> route, Action<Context> handler)
