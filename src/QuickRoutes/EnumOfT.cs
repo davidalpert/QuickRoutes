@@ -14,12 +14,14 @@ namespace QuickRoutes
             return Enum.GetValues(typeof(T)).Cast<T>();
         }
 
-        public static T? Parse<T>(string source)
+        public static bool TryParse(string source, out T result)
         {
+            result = default(T);
+
             if (String.IsNullOrEmpty(source))
             {
                 // cannot parse a null or empty source string
-                return null;
+                return false;
             }
 
             string sourcelower = source.ToLower();
@@ -31,10 +33,12 @@ namespace QuickRoutes
             if (matches.Count() == 0)
             {
                 // no values match the source string
-                return null;
+                return false;
             }
 
-            return matches.First();
+            result = matches.First();
+
+            return true;
         }
     }
 }
