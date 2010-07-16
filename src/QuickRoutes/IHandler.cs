@@ -8,6 +8,6 @@ namespace QuickRoutes
     public interface IHandler
     {
         string Route { get; set; }
-        Action<Context> Handler { get; set; }
+        Action<Context> Handle { get; set; }
     }
 }

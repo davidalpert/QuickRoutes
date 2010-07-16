@@ -30,15 +30,22 @@ namespace QuickRoutes
             App app = context.ApplicationInstance as App;
             if (app == null)
             {
-                throw new InvalidOperationException("Current HttpApplication is not a QuickRoutes App!");
+                throw new InvalidOperationException("The current HttpApplication does not inherit from QuickRoutes.App!");
             }
 
-            string method = context.Request.HttpMethod;
-            string route = context.Request.RawUrl;
+            string requestedMethod = context.Request.HttpMethod;
+            SupportedHttpMethod parsedMethod;
+
+            if (Enum<SupportedHttpMethod>.TryParse(requestedMethod, out parsedMethod) == false)
+            {
+                throw new InvalidOperationException(String.Format("HTTP method '{0}' is not supported by QuickRoutes.", requestedMethod));
+            }
+
+            var route = context.Request.RawUrl;
             var contextWrapper = new HttpContextWrapper(context);
             var quickContext = new Context(contextWrapper);
 
-            app.InvokeHandlerFor(method, route, quickContext);
+            app.InvokeHandlerFor(parsedMethod, route, quickContext);
         }
     }
 }

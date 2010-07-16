@@ -5,13 +5,9 @@ using System.Text;
 
 namespace QuickRoutes
 {
-    public class GetHandler : IHandler
+    public class RouteHandler : IHandler
     {
-        public GetHandler()
-        {
-
-        }
         public string Route { get; set; }
-        public Action<Context> Handler { get; set; }
+        public Action<Context> Handle { get; set; }
     }
 }

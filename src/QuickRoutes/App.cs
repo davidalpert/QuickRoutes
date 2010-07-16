@@ -9,23 +9,29 @@ namespace QuickRoutes
 {
     public class App : HttpApplication
     {
-        private Dictionary<string, List<IHandler>> _handlers;
+        private Dictionary<SupportedHttpMethod, List<IHandler>> _handlers;
 
         public App()
         {
-            _handlers = new Dictionary<string, List<IHandler>>();
-            _handlers["GET"] = new List<IHandler>();
-            _handlers["POST"] = new List<IHandler>();
-            _handlers["PUT"] = new List<IHandler>();
-            _handlers["DELETE"] = new List<IHandler>();
+            _handlers = new Dictionary<SupportedHttpMethod, List<IHandler>>();
+
+            foreach (var method in Enum.GetValues(typeof(SupportedHttpMethod)).Cast<SupportedHttpMethod>())
+            {
+                _handlers[method] = new List<IHandler>();
+            }
 
             // ensure that the favicon has a default action.
             get("/favicon.ico", c => { });
         }
 
+        public Func<string, Func<IHandler, bool>> RouteMatchingStrategyFactory = url =>
+        {
+            return h => h.Route.Equals(url);
+        };
+
         public void get(string route, Action<Context> handler)
         {
-            _handlers["GET"].Add(new GetHandler { Route = route, Handler = handler });
+            _handlers[SupportedHttpMethod.GET].Add(new RouteHandler { Route = route, Handle = handler });
         }
 
         public void get(Func<string> route, Action<Context> handler)
@@ -33,17 +39,22 @@ namespace QuickRoutes
             get(route(), handler);
         }
 
-        public void InvokeHandlerFor(string method, string rawUrl, Context context)
+        public void InvokeHandlerFor(SupportedHttpMethod method, string rawUrl, Context context)
         {
-            IHandler match = _handlers[method].Where(h => h.Route.Equals(rawUrl)).FirstOrDefault();
-            if (match != null)
+            if (_handlers.Keys.Contains(method) == false)
             {
-                match.Handler(context);
+                throw new InvalidOperationException(String.Format("HTTP method '{0}' is known to QuickRoutes but not supported by this build.", method));
             }
-            else
+
+            var routeMatchesRawUrl = RouteMatchingStrategyFactory(rawUrl);
+            IHandler matchedHandler = _handlers[method].Where(routeMatchesRawUrl).LastOrDefault();
+
+            if (matchedHandler == null)
             {
                 throw new InvalidOperationException(String.Format("{0} {1} has no registered handler!", method, rawUrl));
             }
+
+            matchedHandler.Handle(context);
         }
     }
 }
