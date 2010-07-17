@@ -13,13 +13,13 @@ namespace QuickRoutes
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            application.PostMapRequestHandler -= application_PostMapRequestHandler;
         }
 
         public void Init(HttpApplication context)
         {
             application = context;
-            application.PostMapRequestHandler += new EventHandler(application_PostMapRequestHandler);
+            application.PostMapRequestHandler += application_PostMapRequestHandler;
         }
 
         void application_PostMapRequestHandler(object sender, EventArgs e)
