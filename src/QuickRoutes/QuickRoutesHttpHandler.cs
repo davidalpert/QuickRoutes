@@ -9,13 +9,13 @@ namespace QuickRoutes
 {
     public class QuickRoutesHttpHandler : IHttpHandler
     {
-        Context context;
+        IContext context;
 
         /// <summary>
         /// Initializes a new instance of the QuickRoutesHttpHandler class.
         /// </summary>
         /// <param name="contextWrapper"></param>
-        public QuickRoutesHttpHandler(Context context)
+        public QuickRoutesHttpHandler(IContext context)
         {
             this.context = context;
         }

@@ -4,10 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Web.Routing;
 using System.Web;
+using System.Collections.Specialized;
 
 namespace QuickRoutes
 {
-    public class Context
+    public interface IContext
+    {
+        void Write(string text);
+    }
+
+    public class Context : IContext
     {
         HttpContextWrapper httpContext;
 

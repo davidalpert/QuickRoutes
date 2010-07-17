@@ -29,17 +29,17 @@ namespace QuickRoutes
             return h => h.Route.Equals(url);
         };
 
-        public void get(string route, Action<Context> handler)
+        public void get(string route, Action<IContext> handler)
         {
             _handlers[SupportedHttpMethod.GET].Add(new RouteHandler { Route = route, Handle = handler });
         }
 
-        public void get(Func<string> route, Action<Context> handler)
+        public void get(Func<string> route, Action<IContext> handler)
         {
             get(route(), handler);
         }
 
-        public void InvokeHandlerFor(SupportedHttpMethod method, string rawUrl, Context context)
+        public void InvokeHandlerFor(SupportedHttpMethod method, string rawUrl, IContext context)
         {
             if (_handlers.Keys.Contains(method) == false)
             {
