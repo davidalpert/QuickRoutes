@@ -11,6 +11,7 @@ namespace QuickRoutes
     public interface IContext
     {
         void Write(string text);
+        NameValueCollection Form { get; }
     }
 
     public class Context : IContext
@@ -26,9 +27,11 @@ namespace QuickRoutes
             this.httpContext = httpContext;
         }
 
-        public void Write(string param1)
+        public void Write(string text)
         {
-            this.httpContext.Response.Write(param1);
+            this.httpContext.Response.Write(text);
         }
+
+        public NameValueCollection Form { get { return httpContext.Request.Form; } }
     }
 }

@@ -39,6 +39,11 @@ namespace QuickRoutes
             get(route(), handler);
         }
 
+        protected void post(string route, Action<IContext> handler)
+        {
+            _handlers[SupportedHttpMethod.POST].Add(new RouteHandler { Route = route, Handle = handler });
+        }
+
         public void InvokeHandlerFor(SupportedHttpMethod method, string rawUrl, IContext context)
         {
             if (_handlers.Keys.Contains(method) == false)
