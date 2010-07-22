@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickRoutes", "QuickRoutes\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickRoutes.Sample", "QuickRoutes.Sample\QuickRoutes.Sample.csproj", "{815C2DA9-DB96-4679-809F-68864BA68833}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickRoutes.Razor", "QuickRoutes.Razor\QuickRoutes.Razor.csproj", "{520EEE0A-7C26-48FF-9C16-DF2AEF144A07}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{444B6535-9FB3-4BF9-BC03-84DE5E9279BA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rzrc", "..\lib\ASP.NET Web Pages\v1.0\Samples\rzrc\rzrc.csproj", "{920AD42C-4657-4E9A-8AEE-39A1C83E0125}"
@@ -41,6 +43,16 @@ Global
 		{815C2DA9-DB96-4679-809F-68864BA68833}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{815C2DA9-DB96-4679-809F-68864BA68833}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{815C2DA9-DB96-4679-809F-68864BA68833}.Release|x86.ActiveCfg = Release|Any CPU
+		{520EEE0A-7C26-48FF-9C16-DF2AEF144A07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{520EEE0A-7C26-48FF-9C16-DF2AEF144A07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{520EEE0A-7C26-48FF-9C16-DF2AEF144A07}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{520EEE0A-7C26-48FF-9C16-DF2AEF144A07}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{520EEE0A-7C26-48FF-9C16-DF2AEF144A07}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{520EEE0A-7C26-48FF-9C16-DF2AEF144A07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{520EEE0A-7C26-48FF-9C16-DF2AEF144A07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{520EEE0A-7C26-48FF-9C16-DF2AEF144A07}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{520EEE0A-7C26-48FF-9C16-DF2AEF144A07}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{520EEE0A-7C26-48FF-9C16-DF2AEF144A07}.Release|x86.ActiveCfg = Release|Any CPU
 		{920AD42C-4657-4E9A-8AEE-39A1C83E0125}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{920AD42C-4657-4E9A-8AEE-39A1C83E0125}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{920AD42C-4657-4E9A-8AEE-39A1C83E0125}.Debug|Mixed Platforms.Build.0 = Debug|x86
