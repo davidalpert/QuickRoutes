@@ -8,12 +8,12 @@ using System.Collections.Specialized;
 
 namespace QuickRoutes
 {
-    public interface IContext
+    public interface IQuickContext
     {
         void Write(string text);
     }
 
-    public class Context : IContext
+    public class QuickContext : IQuickContext
     {
         HttpContextWrapper httpContext;
 
@@ -21,7 +21,7 @@ namespace QuickRoutes
         /// Initializes a new instance of the Context class.
         /// </summary>
         /// <param name="httpContext"></param>
-        public Context(HttpContextWrapper httpContext)
+        public QuickContext(HttpContextWrapper httpContext)
         {
             this.httpContext = httpContext;
         }

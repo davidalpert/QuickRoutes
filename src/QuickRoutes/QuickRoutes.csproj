@@ -44,12 +44,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
-    <Compile Include="Context.cs" />
+    <Compile Include="QuickContext.cs" />
+    <Compile Include="DefaultQuickRouteFactory.cs" />
     <Compile Include="EnumOfT.cs" />
+    <Compile Include="IQuickRouteFactory.cs" />
     <Compile Include="QuickRoutesHttpModule.cs" />
     <Compile Include="SupportedHttpMethod.cs" />
-    <Compile Include="RouteHandler.cs" />
-    <Compile Include="IHandler.cs" />
+    <Compile Include="LiteralQuickRoute.cs" />
+    <Compile Include="IQuickRoute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuickRoutesHttpHandler.cs" />
   </ItemGroup>

@@ -26,17 +26,7 @@ namespace QuickRoutes
         {
             var wrapper = new HttpContextWrapper(application.Context);
 
-            wrapper.Handler = new QuickRoutesHttpHandler(new Context(wrapper));
-        }
-
-        void application_BeginRequest(object sender, EventArgs e)
-        {
-            Console.Write("BeginRequest.");
-        }
-
-        void context_MapRequestHandler(object sender, EventArgs e)
-        {
-            //Console.Write("MapRequestHandler.");
+            wrapper.Handler = new QuickRoutesHttpHandler(new QuickContext(wrapper));
         }
     }
 }

@@ -7,54 +7,63 @@ using System.Web.Routing;
 
 namespace QuickRoutes
 {
-    public class App : HttpApplication
-    {
-        private Dictionary<SupportedHttpMethod, List<IHandler>> _handlers;
+	public class App : HttpApplication
+	{
+		private Dictionary<SupportedHttpMethod, List<IQuickRoute>> _routes;
 
-        public App()
-        {
-            _handlers = new Dictionary<SupportedHttpMethod, List<IHandler>>();
+		private IQuickRouteFactory _routeFactory;
 
-            foreach (var method in Enum.GetValues(typeof(SupportedHttpMethod)).Cast<SupportedHttpMethod>())
-            {
-                _handlers[method] = new List<IHandler>();
-            }
+		public App()
+		{
+			_routeFactory = new DefaultQuickRouteFactory();
 
-            // ensure that the favicon has a default action.
-            get("/favicon.ico", c => { });
-        }
+			_routes = new Dictionary<SupportedHttpMethod, List<IQuickRoute>>();
 
-        public Func<string, Func<IHandler, bool>> RouteMatchingStrategyFactory = url =>
-        {
-            return h => h.Route.Equals(url);
-        };
+			foreach (var method in Enum.GetValues(typeof(SupportedHttpMethod)).Cast<SupportedHttpMethod>())
+			{
+				_routes[method] = new List<IQuickRoute>();
+			}
 
-        public void get(string route, Action<IContext> handler)
-        {
-            _handlers[SupportedHttpMethod.GET].Add(new RouteHandler { Route = route, Handle = handler });
-        }
+			// ensure that the favicon has a default action.
+			get("/favicon.ico", c => { });
+		}
 
-        public void get(Func<string> route, Action<IContext> handler)
-        {
-            get(route(), handler);
-        }
+		#region get
 
-        public void InvokeHandlerFor(SupportedHttpMethod method, string rawUrl, IContext context)
-        {
-            if (_handlers.Keys.Contains(method) == false)
-            {
-                throw new InvalidOperationException(String.Format("HTTP method '{0}' is known to QuickRoutes but not supported by this build.", method));
-            }
+		public void get(string pattern, Action<IQuickContext> handler)
+		{
 
-            var routeMatchesRawUrl = RouteMatchingStrategyFactory(rawUrl);
-            IHandler matchedHandler = _handlers[method].Where(routeMatchesRawUrl).LastOrDefault();
+			_routes[SupportedHttpMethod.GET].Add(_routeFactory.BuildRouteLinking(pattern, handler));
+		}
 
-            if (matchedHandler == null)
-            {
-                throw new InvalidOperationException(String.Format("{0} {1} has no registered handler!", method, rawUrl));
-            }
+		public void get(Func<string> buildPattern, Action<IQuickContext> handler)
+		{
+			get(buildPattern(), handler);
+		}
 
-            matchedHandler.Handle(context);
-        }
-    }
+		#endregion
+
+		public IQuickRoute FindRouteFor(SupportedHttpMethod method, string rawUrl, IQuickContext context)
+		{
+			if (_routes.Keys.Contains(method) == false)
+			{
+				throw new InvalidOperationException(String.Format("HTTP method '{0}' is known to QuickRoutes but not supported by this build.", method));
+			}
+
+			IQuickRoute matchedRoute = _routes[method].Where(route => route.CanHandle(rawUrl)).LastOrDefault();
+
+			/* a.k.a.
+			IQuickRoute matchedRoute = (from route in _routes[method]
+										where route.CanHandle(rawUrl)
+										select route).LastOrDefault();
+			 */
+
+			if (matchedRoute == null)
+			{
+				throw new InvalidOperationException(String.Format("{0} '{1}' has no registered handler!", method, rawUrl));
+			}
+
+			return matchedRoute;
+		}
+	}
 }
