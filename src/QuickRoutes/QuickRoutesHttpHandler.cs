@@ -45,7 +45,7 @@ namespace QuickRoutes
 			var contextWrapper = new HttpContextWrapper(context);
 			var quickContext = new QuickContext(contextWrapper);
 
-			var matchedRoute = app.FindRouteFor(parsedMethod, rawUrl, quickContext);
+			var matchedRoute = app.FindRouteFor(parsedMethod, rawUrl);
 
 			matchedRoute.Handle(quickContext);
 		}

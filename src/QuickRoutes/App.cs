@@ -43,7 +43,7 @@ namespace QuickRoutes
 
 		#endregion
 
-		public IQuickRoute FindRouteFor(SupportedHttpMethod method, string rawUrl, IQuickContext context)
+		public IQuickRoute FindRouteFor(SupportedHttpMethod method, string rawUrl)
 		{
 			if (_routes.Keys.Contains(method) == false)
 			{
