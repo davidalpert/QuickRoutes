@@ -12,5 +12,11 @@ namespace QuickRoutes
 		/// the given <paramref name="route"/> to the given <paramref name="handler"/>
 		/// </summary>
 		IQuickRoute BuildRouteLinking(string route, Action<IQuickContext> handler);
+
+		/// <summary>
+		/// Responsible for building an <see cref="IQuickRoute"/> that links
+		/// the given <paramref name="route"/> to the given <paramref name="handler"/>
+		/// </summary>
+		IQuickRoute BuildRouteLinking<TInputModel>(string route, Action<IQuickContext, TInputModel> handler);
 	}
 }

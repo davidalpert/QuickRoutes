@@ -32,7 +32,11 @@ namespace QuickRoutes
 
 		public void get(string pattern, Action<IQuickContext> handler)
 		{
+			_routes[SupportedHttpMethod.GET].Add(_routeFactory.BuildRouteLinking(pattern, handler));
+		}
 
+		public void get<TInputModel>(string pattern, Action<IQuickContext, TInputModel> handler)
+		{
 			_routes[SupportedHttpMethod.GET].Add(_routeFactory.BuildRouteLinking(pattern, handler));
 		}
 
