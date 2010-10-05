@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="QuickContextSpy.cs" />
     <Compile Include="TestSpike.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>

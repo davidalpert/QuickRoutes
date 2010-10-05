@@ -52,17 +52,15 @@ namespace QuickRoutes.Tests
             
             context.Response.ShouldEqual("hello");
         }
-    }
 
-    public class QuickContextSpy : IQuickContext
-    {
-        StringBuilder responseBuilder = new StringBuilder();
-
-        public virtual void Write(string text)
+        [Fact]
+        public void Monkey3()
         {
-            responseBuilder.Append(text);
-        }
+            var context = new Mock<IQuickContext>().Object;
+            
+            app.FindRouteFor(SupportedHttpMethod.GET, "/hi").Handle(context);
 
-        public string Response { get { return responseBuilder.ToString(); } }
+            Mock.Get(context).Verify(cxt => cxt.Write("hello"));
+        }
     }
 }
