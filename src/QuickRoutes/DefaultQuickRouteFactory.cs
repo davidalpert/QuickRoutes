@@ -18,7 +18,7 @@ namespace QuickRoutes
 
 		public bool CanHandle(string rawUrl)
 		{
-			return true;
+			return false;
 		}
 
 		private Action<IQuickContext> ResovleAndHandle(Action<IQuickContext, TInputModel> innerAction)

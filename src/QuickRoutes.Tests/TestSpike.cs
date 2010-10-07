@@ -19,6 +19,69 @@ namespace QuickRoutes.Tests
         }
 
         [Fact]
+        public void GET_route_with_simple_parameter_matches_when_url_component_is_missing() 
+        {
+            (new TestApp()).FindRouteFor(SupportedHttpMethod.GET, "/hi").Pattern
+                .ShouldNotBeNull()
+                .ShouldEqual("/hi/{name}");
+        }
+
+        [Fact]
+        public void GET_route_with_simple_parameter_matches_when_url_component_is_empty() 
+        {
+            (new TestApp()).FindRouteFor(SupportedHttpMethod.GET, "/hi/").Pattern
+                .ShouldNotBeNull()
+                .ShouldEqual("/hi/{name}");
+        }
+
+        [Fact]
+        public void GET_route_with_simple_parameter_matches_when_url_component_has_a_value() 
+        {
+            (new TestApp()).FindRouteFor(SupportedHttpMethod.GET, "/hi/bob").Pattern
+                .ShouldNotBeNull()
+                .ShouldEqual("/hi/{name}");
+        }
+
+        [Fact]
+        public void GET_route_with_simple_parameter_matches_when_url_component_has_a_value_and_a_trailing_slash() 
+        {
+            (new TestApp()).FindRouteFor(SupportedHttpMethod.GET, "/hi/bob/").Pattern
+                .ShouldNotBeNull()
+                .ShouldEqual("/hi/{name}");
+        }
+
+        [Fact]
+        public void GET_route_with_simple_parameter_does_not_matche_when_url_is_too_long() 
+        {
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                (new TestApp()).FindRouteFor(SupportedHttpMethod.GET, "/hi/bob/frank");
+            });
+        }
+
+        [Fact]
+        public void GET_route_throws_when_url_does_not_match() 
+        {
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                (new TestApp()).FindRouteFor(SupportedHttpMethod.GET, "/hi/bob/frank");
+            });
+        }
+
+        [Fact]
+        public void GET_route_when_url_does_not_match_throws_with_diagnostic_message() 
+        {
+            try
+            {
+                (new TestApp()).FindRouteFor(SupportedHttpMethod.GET, "/hi/bob/frank");
+            }
+            catch (InvalidOperationException ex)
+            {
+                ex.Message.ShouldEqual("GET '/hi/bob/frank' has no registered handler!");
+            }
+        }
+
+        [Fact]
         public void Can_handle_GET_routes_with_a_single_parameter()
         {
             using (var app = new TestApp())
